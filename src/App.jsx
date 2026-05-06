@@ -211,14 +211,14 @@ const Header = () => {
           }}>
             <img src={faviconImg} alt="ApnaRozgaar logo" style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
           </div>
-          <span style={{ 
-            fontWeight: '800', 
-            fontSize: '1.4rem', 
+          <span style={{
+            fontWeight: '800',
+            fontSize: '1.4rem',
             background: 'var(--primary-gradient)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            fontFamily: "'Outfit', sans-serif", 
-            letterSpacing: '-0.02em' 
+            fontFamily: "'Outfit', sans-serif",
+            letterSpacing: '-0.02em'
           }}>
             ApnaRozgaar
           </span>
@@ -228,7 +228,7 @@ const Header = () => {
           <AccessibleButton variant="premium" className="desktop-only" onClick={() => navigate('/pricing')} aria-label="Premium Membership" style={{ gap: '6px', marginRight: '8px' }}>
             <Crown size={16} /> Premium
           </AccessibleButton>
-          
+
           <div style={{ width: '1px', height: '24px', background: 'var(--border)', margin: '0 8px' }} className="desktop-only" />
 
           <AccessibleButton variant="ghost" className="desktop-only nav-link-hover" onClick={() => navigate('/interview-prep')} aria-label="Practice Interviews">Interview Prep</AccessibleButton>
@@ -278,7 +278,7 @@ const Header = () => {
           )}
 
           <AccessibleButton className="desktop-only" onClick={() => navigate('/employer')} aria-label="Post a new job listing" style={{ marginLeft: '8px' }}>Post a Job</AccessibleButton>
-          
+
           <button
             ref={menuButtonRef}
             className="mobile-only"
@@ -292,238 +292,238 @@ const Header = () => {
           </button>
         </div>
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.nav
-            ref={mobileMenuRef}
-            id="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile navigation menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="glass"
-            style={{
-              position: 'fixed',
-              top: 'var(--header-height)',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              padding: '24px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-              zIndex: 100,
-              overflowY: 'auto'
-            }}
-          >
-            <button
-              ref={firstFocusableRef}
-              onClick={closeMobileMenu}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.nav
+              ref={mobileMenuRef}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="glass"
               style={{
-                alignSelf: 'flex-end',
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border)',
-                borderRadius: '12px',
-                padding: '12px',
-                cursor: 'pointer',
-                minWidth: '44px',
-                minHeight: '44px',
+                position: 'fixed',
+                top: 'var(--header-height)',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                padding: '24px',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px'
+                flexDirection: 'column',
+                gap: '16px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                zIndex: 100,
+                overflowY: 'auto'
               }}
-              aria-label="Close navigation menu"
             >
-              <X size={20} aria-hidden="true" />
-              <span>Close</span>
-            </button>
+              <button
+                ref={firstFocusableRef}
+                onClick={closeMobileMenu}
+                style={{
+                  alignSelf: 'flex-end',
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '12px',
+                  padding: '12px',
+                  cursor: 'pointer',
+                  minWidth: '44px',
+                  minHeight: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px'
+                }}
+                aria-label="Close navigation menu"
+              >
+                <X size={20} aria-hidden="true" />
+                <span>Close</span>
+              </button>
 
-            <Link
-              onClick={closeMobileMenu}
-              to="/employer"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              For Employers
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/profile"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              My Profile
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/jobs"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              Browse Jobs
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/chat"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              Chat with Asha
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/pricing"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center',
-                color: '#FFD700'
-              }}
-            >
-              Premium Membership
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/interview-prep"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                borderLeft: '4px solid var(--accent-purple)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              Interview Prep
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/resume-builder"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              AI Resume Built
-            </Link>
-            <Link
-              onClick={closeMobileMenu}
-              to="/library"
-              style={{
-                fontSize: '1.2rem',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                background: 'var(--bg-secondary)',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              AI Books Library
-            </Link>
-
-            <hr style={{ borderTop: '1px solid var(--border)', opacity: 0.5, margin: '8px 0' }} aria-hidden="true" />
-
-            {isAuthenticated ? (
-              <>
-                <div style={{
+              <Link
+                onClick={closeMobileMenu}
+                to="/employer"
+                style={{
+                  fontSize: '1.2rem',
                   padding: '16px 20px',
-                  fontSize: '1.1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: '500'
-                }}>
-                  Hi, {userProfile?.name || user?.displayName || 'User'}
-                </div>
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                For Employers
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/profile"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                My Profile
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/jobs"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                Browse Jobs
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/chat"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                Chat with Asha
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/pricing"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: '#FFD700'
+                }}
+              >
+                Premium Membership
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/interview-prep"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  borderLeft: '4px solid var(--accent-purple)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                Interview Prep
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/resume-builder"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                AI Resume Built
+              </Link>
+              <Link
+                onClick={closeMobileMenu}
+                to="/library"
+                style={{
+                  fontSize: '1.2rem',
+                  padding: '16px 20px',
+                  borderRadius: '12px',
+                  background: 'var(--bg-secondary)',
+                  minHeight: '56px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                AI Books Library
+              </Link>
+
+              <hr style={{ borderTop: '1px solid var(--border)', opacity: 0.5, margin: '8px 0' }} aria-hidden="true" />
+
+              {isAuthenticated ? (
+                <>
+                  <div style={{
+                    padding: '16px 20px',
+                    fontSize: '1.1rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: '500'
+                  }}>
+                    Hi, {userProfile?.name || user?.displayName || 'User'}
+                  </div>
+                  <AccessibleButton
+                    variant="ghost"
+                    onClick={async () => { await logout(); closeMobileMenu(); navigate('/'); }}
+                    style={{
+                      justifyContent: 'flex-start',
+                      padding: '16px 20px',
+                      fontSize: '1.2rem',
+                      minHeight: '56px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px'
+                    }}
+                    aria-label="Sign out of your account"
+                  >
+                    <LogOut size={20} />
+                    Sign Out
+                  </AccessibleButton>
+                </>
+              ) : (
                 <AccessibleButton
                   variant="ghost"
-                  onClick={async () => { await logout(); closeMobileMenu(); navigate('/'); }}
+                  onClick={() => { closeMobileMenu(); navigate('/auth'); }}
                   style={{
                     justifyContent: 'flex-start',
                     padding: '16px 20px',
                     fontSize: '1.2rem',
-                    minHeight: '56px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px'
+                    minHeight: '56px'
                   }}
-                  aria-label="Sign out of your account"
+                  aria-label="Sign in to your account"
                 >
-                  <LogOut size={20} />
-                  Sign Out
+                  Sign In
                 </AccessibleButton>
-              </>
-            ) : (
+              )}
               <AccessibleButton
-                variant="ghost"
-                onClick={() => { closeMobileMenu(); navigate('/auth'); }}
+                onClick={() => { closeMobileMenu(); navigate('/employer'); }}
                 style={{
-                  justifyContent: 'flex-start',
-                  padding: '16px 20px',
-                  fontSize: '1.2rem',
-                  minHeight: '56px'
+                  width: '100%',
+                  minHeight: '56px',
+                  fontSize: '1.1rem'
                 }}
-                aria-label="Sign in to your account"
+                aria-label="Post a new job listing"
               >
-                Sign In
+                Post a Job
               </AccessibleButton>
-            )}
-            <AccessibleButton
-              onClick={() => { closeMobileMenu(); navigate('/employer'); }}
-              style={{
-                width: '100%',
-                minHeight: '56px',
-                fontSize: '1.1rem'
-              }}
-              aria-label="Post a new job listing"
-            >
-              Post a Job
-            </AccessibleButton>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </header>
     </div>
   );
@@ -534,98 +534,103 @@ const Footer = () => (
     marginTop: 'auto',
     position: 'relative',
     overflow: 'hidden',
-    background: '#0A0416',
+    background: '#151515',
     color: 'white',
-    padding: '80px 24px 32px',
-    fontFamily: "'Inter', sans-serif"
+    padding: '40px 24px 24px',
+    fontFamily: "'Inter', sans-serif",
+    borderTop: '1px solid rgba(255,255,255,0.05)'
   }} role="contentinfo">
-    <div style={{
-      position: 'absolute', top: '-150px', left: '-10%', width: '500px', height: '500px',
-      background: 'radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%)',
-      borderRadius: '50%', pointerEvents: 'none'
-    }} aria-hidden="true" />
-    <div style={{
-      position: 'absolute', bottom: '-200px', right: '-10%', width: '600px', height: '600px',
-      background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)',
-      borderRadius: '50%', pointerEvents: 'none'
-    }} aria-hidden="true" />
-
     <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
-        gap: '48px', 
-        marginBottom: '64px' 
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '32px',
+        marginBottom: '32px',
+        justifyContent: 'space-between'
       }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Left Section */}
+        <div style={{ flex: '1 1 250px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* Logo */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ background: 'white', padding: '4px', borderRadius: '50%', display: 'inline-flex' }}>
-              <img src={faviconImg} alt="Apna Rozgaar logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
+              <img src={faviconImg} alt="Apna Rozgaar logo" style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
             </div>
-            <strong style={{ fontSize: '1.8rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', background: 'var(--primary-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Apna Rozgaar</strong>
-          </div>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.05rem', lineHeight: '1.7', margin: 0 }}>
-            Empowering careers through accessibility. We match exceptional talent with truly inclusive employers.
-          </p>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <span style={{ padding: '8px 16px', background: 'rgba(16, 185, 129, 0.15)', color: '#34D399', borderRadius: '24px', fontSize: '0.85rem', fontWeight: '600', border: '1px solid rgba(16,185,129,0.3)' }}>✓ WCAG 2.1 AA</span>
-            <span style={{ padding: '8px 16px', background: 'rgba(255, 255, 255, 0.1)', color: 'white', borderRadius: '24px', fontSize: '0.85rem', fontWeight: '600', border: '1px solid rgba(255,255,255,0.2)' }}>🤟 Deaf/HoH Friendly</span>
-          </div>
-        </div>
-
-        <div>
-          <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '20px', fontFamily: "'Outfit', sans-serif" }}>Platform</h3>
-          <nav aria-label="Platform links" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <Link to="/about" className="footer-link">About Us</Link>
-            <Link to="/contact" className="footer-link">Contact</Link>
-            <Link to="/accessibility" className="footer-link">Accessibility Statement</Link>
-          </nav>
-        </div>
-
-        <div>
-          <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '20px', fontFamily: "'Outfit', sans-serif" }}>Contact Us</h3>
-          <nav aria-label="Contact Options" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <a href="mailto:support@apnarozgaar.in" className="footer-link">
-              <span role="img" aria-label="Email" style={{ marginRight: '8px' }}>✉️</span> support@apnarozgaar.in
-            </a>
-            <a href="#" className="footer-link">
-              <span role="img" aria-label="Text/SMS" style={{ marginRight: '8px' }}>💬</span> SMS: +91 98765 43210
-            </a>
-            <div style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', marginTop: '8px' }}>
-              <span style={{ display: 'block', color: '#F87171', fontSize: '0.85rem', fontWeight: '600', marginBottom: '4px' }}>📵 No phone-only support</span>
-              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>Inquiries via email/chat only</span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <strong style={{ fontSize: '1.5rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', color: 'white', lineHeight: '1.1' }}>
+                apna
+              </strong>
+              <strong style={{ fontSize: '1.5rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', color: 'white', lineHeight: '1.1' }}>
+                rozgaar
+              </strong>
             </div>
-          </nav>
+          </div>
+          <p style={{ color: 'white', fontSize: '1rem', fontWeight: '500', margin: 0 }}>Unlocking Possibilities</p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <p style={{ color: '#ccc', margin: 0, fontSize: '0.85rem' }}>Drop us a line of any query</p>
+            <a href="/contact" style={{ color: '#D8B4FE', textDecoration: 'none', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', letterSpacing: '0.5px' }}>CONTACT US &rarr;</a>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <p style={{ color: '#ccc', margin: 0, fontSize: '0.85rem' }}>Like what we do & want to help?</p>
+            <a href="/volunteer" style={{ color: '#D8B4FE', textDecoration: 'none', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', letterSpacing: '0.5px' }}>VOLUNTEER &rarr;</a>
+          </div>
+
+
         </div>
 
-        <div>
-          <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '20px', fontFamily: "'Outfit', sans-serif" }}>Connect</h3>
-          <nav aria-label="Social media links" style={{ display: 'flex', gap: '16px' }}>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Twitter">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-          </nav>
+        {/* Right Section (Links) */}
+        <div style={{ flex: '2 1 500px', display: 'flex', flexWrap: 'wrap', gap: '24px', justifyContent: 'space-between', paddingTop: '8px' }}>
+          <div style={{ flex: '1 1 120px' }}>
+            <h4 style={{ color: 'white', fontSize: '0.85rem', fontWeight: '700', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>FOR CANDIDATES</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <Link to="/jobs" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Employment Opportunities</Link>
+              <Link to="/jobs" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Find a Job</Link>
+              <Link to="/interview-prep" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Interview Prep</Link>
+              <Link to="/resume-builder" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>AI Resume Builder</Link>
+            </div>
+          </div>
+
+          <div style={{ flex: '1 1 120px' }}>
+            <h4 style={{ color: 'white', fontSize: '0.85rem', fontWeight: '700', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>FOR CORPORATES</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <Link to="/employer" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Hire Full Time & Interns</Link>
+              <Link to="/employer" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Post a Job Listing</Link>
+              <Link to="/pricing" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Premium Memberships</Link>
+              <Link to="/contact" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Partner with Us</Link>
+            </div>
+          </div>
+
+          <div style={{ flex: '1 1 120px' }}>
+            <h4 style={{ color: 'white', fontSize: '0.85rem', fontWeight: '700', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>RESOURCES</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <Link to="/about" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Our Story</Link>
+              <Link to="/library" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>AI Library</Link>
+              <Link to="/blog" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Blog & Articles</Link>
+              <Link to="/faq" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>FAQs</Link>
+            </div>
+          </div>
+
+          <div style={{ flex: '1 1 120px' }}>
+            <h4 style={{ color: 'white', fontSize: '0.85rem', fontWeight: '700', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>COMPANY</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <Link to="/about" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>About Apna Rozgaar</Link>
+              <Link to="/terms" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Terms of Use</Link>
+              <Link to="/privacy" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Privacy Policy</Link>
+              <Link to="/accessibility" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Accessibility Statement</Link>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
-          <p style={{ margin: 0, color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>© {new Date().getFullYear()} Apna Rozgaar. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <a href="/privacy" className="footer-bottom-link">Privacy</a>
-            <span style={{ color: 'rgba(255,255,255,0.2)' }}>•</span>
-            <a href="/terms" className="footer-bottom-link">Terms</a>
-          </div>
-        </div>
-        <p style={{ margin: 0, color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ opacity: 0.7 }}>⌨️</span> Press <kbd style={{ background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.2)', fontFamily: 'monospace' }}>?</kbd> for shortcuts
-        </p>
+
+
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '24px' }}>
+        <a href="#" style={{ color: '#ccc', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'white'} onMouseLeave={(e) => e.currentTarget.style.color = '#ccc'}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="#" style={{ color: '#ccc', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'white'} onMouseLeave={(e) => e.currentTarget.style.color = '#ccc'}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        <a href="#" style={{ color: '#ccc', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'white'} onMouseLeave={(e) => e.currentTarget.style.color = '#ccc'}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
+        <a href="#" style={{ color: '#ccc', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'white'} onMouseLeave={(e) => e.currentTarget.style.color = '#ccc'}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+        <a href="#" style={{ color: '#ccc', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'white'} onMouseLeave={(e) => e.currentTarget.style.color = '#ccc'}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
       </div>
     </div>
   </footer>
