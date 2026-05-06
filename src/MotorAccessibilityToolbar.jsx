@@ -14,10 +14,11 @@ const defaultSettings = {
   keyboardHighlight: false,
   reduceMotion: false,
   singleClickMode: false,
+  focusMode: false,
 };
 
-export default function MotorAccessibilityToolbar() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function MotorAccessibilityToolbar({ embedded = false }) {
+  const [isOpen, setIsOpen] = useState(embedded ? true : false);
   const [settings, setSettings] = useState(defaultSettings);
 
   // Load settings from localStorage on mount
@@ -52,8 +53,12 @@ export default function MotorAccessibilityToolbar() {
     // Reduce Motion
     html.classList.toggle('reduce-motion', settings.reduceMotion);
 
+    // Focus Mode
+    html.classList.toggle('focus-mode', settings.focusMode);
+
     // Save to localStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    document.dispatchEvent(new CustomEvent('motor-a11y-settings-change', { detail: settings }));
   }, [settings]);
 
   // Handle keyboard navigation
@@ -78,6 +83,12 @@ export default function MotorAccessibilityToolbar() {
   };
 
   const options = [
+     {
+      key: 'focusMode',
+      label: 'Focus Mode',
+      description: 'Blurs surrounding content and spotlights the active area',
+      icon: Focus,
+    },
     {
       key: 'largeCursor',
       label: 'Large Cursor',
@@ -120,6 +131,7 @@ export default function MotorAccessibilityToolbar() {
       description: 'Converts double-clicks to single clicks',
       icon: PointerOff,
     },
+   
   ];
 
   return (
@@ -137,29 +149,39 @@ export default function MotorAccessibilityToolbar() {
 
       {/* Main Toolbar */}
       <div 
-        className="motor-a11y-toolbar"
+        className={embedded ? "motor-a11y-toolbar-embedded" : "motor-a11y-toolbar"}
         role="region"
         aria-label="Motor Accessibility Toolbar"
       >
         {/* Toggle Button */}
-        <button
-          className="motor-a11y-toggle-btn"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-          aria-controls="motor-a11y-panel"
-          aria-label={isOpen ? 'Close accessibility toolbar' : 'Open accessibility toolbar'}
-          title="Motor Accessibility Options"
-        >
-          {isOpen ? <X size={24} /> : <Accessibility size={24} />}
-        </button>
+        {!embedded && (
+          <button
+            className="motor-a11y-toggle-btn"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-controls="motor-a11y-panel"
+            aria-label={isOpen ? 'Close accessibility toolbar' : 'Open accessibility toolbar'}
+            title="Motor Accessibility Options"
+          >
+            {isOpen ? <X size={24} /> : <Accessibility size={24} />}
+          </button>
+        )}
 
         {/* Panel */}
         {isOpen && (
           <div 
             id="motor-a11y-panel"
-            className="motor-a11y-panel"
+            className={embedded ? "motor-a11y-panel-embedded" : "motor-a11y-panel"}
             role="dialog"
             aria-label="Motor Accessibility Options"
+            style={embedded ? {
+              width: '100%',
+              background: 'var(--card-bg)',
+              borderRadius: '20px',
+              border: '1px solid var(--border)',
+              overflow: 'hidden',
+              boxShadow: 'none'
+            } : {}}
           >
             <div className="motor-a11y-panel-header">
               <h3 id="motor-a11y-title">
