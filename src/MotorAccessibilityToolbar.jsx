@@ -15,6 +15,9 @@ const defaultSettings = {
   reduceMotion: false,
   singleClickMode: false,
   focusMode: false,
+  fontSize: 'normal', // normal | large | xlarge
+  contrast: 'normal', // normal | high
+  lineSpacing: 'normal', // normal | wide
 };
 
 export default function MotorAccessibilityToolbar({ embedded = false }) {
@@ -56,6 +59,16 @@ export default function MotorAccessibilityToolbar({ embedded = false }) {
     // Focus Mode
     html.classList.toggle('focus-mode', settings.focusMode);
 
+    // Font size
+    html.classList.toggle('font-size-large', settings.fontSize === 'large');
+    html.classList.toggle('font-size-xlarge', settings.fontSize === 'xlarge');
+
+    // Contrast
+    html.classList.toggle('high-contrast', settings.contrast === 'high');
+
+    // Line spacing
+    html.classList.toggle('line-spacing-wide', settings.lineSpacing === 'wide');
+
     // Save to localStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
     document.dispatchEvent(new CustomEvent('motor-a11y-settings-change', { detail: settings }));
@@ -77,13 +90,17 @@ export default function MotorAccessibilityToolbar({ embedded = false }) {
     setSettings(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const setSettingValue = (key, value) => {
+    setSettings(prev => ({ ...prev, [key]: value }));
+  };
+
   const resetAll = () => {
     setSettings(defaultSettings);
     localStorage.removeItem(STORAGE_KEY);
   };
 
   const options = [
-     {
+    {
       key: 'focusMode',
       label: 'Focus Mode',
       description: 'Blurs surrounding content and spotlights the active area',
@@ -131,7 +148,40 @@ export default function MotorAccessibilityToolbar({ embedded = false }) {
       description: 'Converts double-clicks to single clicks',
       icon: PointerOff,
     },
-   
+    {
+      key: 'fontSize',
+      label: 'Font Size',
+      description: 'Adjust base font size for readability',
+      icon: ChevronUp,
+      type: 'select',
+      choices: [
+        { value: 'normal', label: 'Normal' },
+        { value: 'large', label: 'Large' },
+        { value: 'xlarge', label: 'Extra Large' },
+      ]
+    },
+    {
+      key: 'contrast',
+      label: 'Contrast',
+      description: 'Higher contrast color scheme',
+      icon: ChevronUp,
+      type: 'select',
+      choices: [
+        { value: 'normal', label: 'Normal' },
+        { value: 'high', label: 'High Contrast' },
+      ]
+    },
+    {
+      key: 'lineSpacing',
+      label: 'Line Spacing',
+      description: 'Increase spacing between lines for readability',
+      icon: ChevronUp,
+      type: 'select',
+      choices: [
+        { value: 'normal', label: 'Normal' },
+        { value: 'wide', label: 'Wide' },
+      ]
+    },
   ];
 
   return (
@@ -197,7 +247,7 @@ export default function MotorAccessibilityToolbar({ embedded = false }) {
               {options.map((option) => {
                 const Icon = option.icon;
                 const isActive = settings[option.key];
-                
+
                 return (
                   <div 
                     key={option.key}
@@ -223,15 +273,29 @@ export default function MotorAccessibilityToolbar({ embedded = false }) {
                         </span>
                       </span>
                     </label>
-                    <input
-                      id={`a11y-${option.key}`}
-                      type="checkbox"
-                      role="switch"
-                      checked={isActive}
-                      onChange={() => toggleSetting(option.key)}
-                      aria-pressed={isActive}
-                      aria-label={`${option.label}: ${isActive ? 'On' : 'Off'}`}
-                    />
+                    {option.type === 'select' ? (
+                      <select
+                        id={`a11y-${option.key}`}
+                        value={settings[option.key]}
+                        onChange={(e) => setSettingValue(option.key, e.target.value)}
+                        aria-label={option.label}
+                        style={{ minWidth: '140px' }}
+                      >
+                        {option.choices.map(c => (
+                          <option key={c.value} value={c.value}>{c.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        id={`a11y-${option.key}`}
+                        type="checkbox"
+                        role="switch"
+                        checked={!!isActive}
+                        onChange={() => toggleSetting(option.key)}
+                        aria-pressed={!!isActive}
+                        aria-label={`${option.label}: ${isActive ? 'On' : 'Off'}`}
+                      />
+                    )}
                   </div>
                 );
               })}
