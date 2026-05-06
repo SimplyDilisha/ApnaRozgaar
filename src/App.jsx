@@ -17,7 +17,6 @@ import AccessibilityMenu from './AccessibilityMenu';
 import InterviewPrepPage from './pages/InterviewPrepPage';
 import AboutUs from './pages/AboutUs';
 import ResumeBuilder from './pages/ResumeBuilder';
-import LibraryPage from './pages/LibraryPage';
 import UserProfile from './pages/UserProfile';
 import PricingPage from './pages/PricingPage';
 import { useAuth } from './context/AuthContext';
@@ -199,7 +198,7 @@ const Header = () => {
         borderRadius: '24px',
         boxShadow: scrolled ? '0 10px 40px -10px rgba(0,0,0,0.08)' : '0 4px 20px rgba(0,0,0,0.03)',
         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-        maxWidth: '1200px',
+        maxWidth: '1400px',
         margin: '0 auto'
       }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
@@ -226,15 +225,15 @@ const Header = () => {
         </Link>
 
         <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-end', flex: '1 1 auto' }}>
-          <AccessibleButton variant="premium" className="desktop-only" onClick={() => navigate('/pricing')} aria-label="Premium Membership" style={{ gap: '6px', marginRight: '8px' }}>
-            <Crown size={16} /> Premium
+          <AccessibleButton variant="premium" onClick={() => navigate('/pricing')} aria-label="Premium Membership" style={{ gap: '9px', marginRight: '0px' }}>
+            👑 Premium
           </AccessibleButton>
 
-          <div style={{ width: '1px', height: '24px', background: 'var(--border)', margin: '0 8px' }} className="desktop-only" />
+
 
           <AccessibleButton variant="ghost" className="desktop-only nav-link-hover" onClick={() => navigate('/interview-prep')} aria-label="Practice Interviews">Interview Prep</AccessibleButton>
           <AccessibleButton variant="ghost" className="desktop-only nav-link-hover" onClick={() => navigate('/resume-builder')} aria-label="AI Resume Builder">AI Resume</AccessibleButton>
-          <AccessibleButton variant="ghost" className="desktop-only nav-link-hover" onClick={() => navigate('/library')} aria-label="AI Library">Library</AccessibleButton>
+          {/* <AccessibleButton variant="ghost" className="desktop-only nav-link-hover" onClick={() => navigate('/library')} aria-label="AI Library">Library</AccessibleButton> */}
 
           <div style={{ width: '1px', height: '24px', background: 'var(--border)', margin: '0 8px' }} className="desktop-only" />
 
@@ -450,21 +449,7 @@ const Header = () => {
               >
                 AI Resume Built
               </Link>
-              <Link
-                onClick={closeMobileMenu}
-                to="/library"
-                style={{
-                  fontSize: '1.2rem',
-                  padding: '16px 20px',
-                  borderRadius: '12px',
-                  background: 'var(--bg-secondary)',
-                  minHeight: '56px',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
-              >
-                AI Books Library
-              </Link>
+
 
               <hr style={{ borderTop: '1px solid var(--border)', opacity: 0.5, margin: '8px 0' }} aria-hidden="true" />
 
@@ -544,7 +529,7 @@ const FocusModeOverlay = () => {
 
   const updateSpotlight = useCallback((targetElement = null) => {
     let target;
-    
+
     if (targetElement) {
       target = resolveFocusArea(targetElement);
     } else {
@@ -757,7 +742,7 @@ const Footer = () => (
             <h4 style={{ color: 'white', fontSize: '0.85rem', fontWeight: '700', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>RESOURCES</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <Link to="/about" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Our Story</Link>
-              <Link to="/library" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>AI Library</Link>
+              {/* <Link to="/library" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>AI Library</Link> */}
               <Link to="/blog" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>Blog & Articles</Link>
               <Link to="/faq" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.8rem' }}>FAQs</Link>
             </div>
@@ -839,11 +824,7 @@ const AnimatedRoutes = () => {
             <ResumeBuilder />
           </motion.div>
         } />
-        <Route path="/library" element={
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}>
-            <LibraryPage />
-          </motion.div>
-        } />
+
         <Route path="/about" element={
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}>
             <AboutUs />
@@ -898,11 +879,11 @@ const AppLayout = () => {
           style={{
             position: 'fixed',
             right: '24px',
-            bottom: '180px',
+            bottom: '90px',
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            background: 'var(--accent-purple)',
+            background: 'black',
             color: 'white',
             border: 'none',
             cursor: 'pointer',

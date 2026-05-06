@@ -14,9 +14,9 @@ export default function AccessibilityMenu() {
   };
 
   return (
-    <div style={{ position: 'fixed', right: '24px', bottom: '100px', zIndex: 9999 }}>
+    <div style={{ position: 'fixed', right: '24px', bottom: '10px', zIndex: 9999 }}>
       {/* Floating Toggle Button */}
-      <motion.button 
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -57,48 +57,48 @@ export default function AccessibilityMenu() {
               overflow: 'hidden'
             }}
           >
-             <div style={{ padding: '20px', background: 'var(--primary-gradient)', color: 'white', flexShrink: 0 }}>
-               <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.2rem' }}>
-                 <Accessibility size={24} /> Accessibility Menu
-               </h3>
-             </div>
-             
-             <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '24px', overflowY: 'auto' }}>
-                <div>
-                   <ScreenReader embedded={true} />
-                </div>
-                <hr style={{ borderColor: 'var(--border)', margin: 0, opacity: 0.5 }} />
-                <div>
-                   <VoiceControl embedded={true} />
-                </div>
-                <hr style={{ borderColor: 'var(--border)', margin: 0, opacity: 0.5 }} />
-                <div>
-                   <MotorAccessibilityToolbar embedded={true} />
-                </div>
-                <hr style={{ borderColor: 'var(--border)', margin: 0, opacity: 0.5 }} />
-                <div>
-                   <button 
-                     onClick={triggerKeyboardShortcuts}
-                     style={{
-                        width: '100%',
-                        padding: '16px',
-                        background: 'var(--bg-secondary)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '12px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '12px',
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        color: 'var(--text-primary)',
-                        cursor: 'pointer'
-                     }}
-                   >
-                     <Keyboard size={20} /> Show Keyboard Shortcuts
-                   </button>
-                </div>
-             </div>
+            <div style={{ padding: '20px', background: 'var(--primary-gradient)', color: 'white', flexShrink: 0 }}>
+              <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.2rem' }}>
+                <Accessibility size={24} /> Accessibility Menu
+              </h3>
+            </div>
+
+            <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '24px', overflowY: 'auto' }}>
+              <div>
+                <ScreenReader embedded={true} />
+              </div>
+              <hr style={{ borderColor: 'var(--border)', margin: 0, opacity: 0.5 }} />
+              <div>
+                <VoiceControl embedded={true} />
+              </div>
+              <hr style={{ borderColor: 'var(--border)', margin: 0, opacity: 0.5 }} />
+              <div>
+                <MotorAccessibilityToolbar embedded={true} />
+              </div>
+              <hr style={{ borderColor: 'var(--border)', margin: 0, opacity: 0.5 }} />
+              <div>
+                <button
+                  onClick={triggerKeyboardShortcuts}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    background: 'var(--bg-secondary)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    color: 'var(--text-primary)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <Keyboard size={20} /> Show Keyboard Shortcuts
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

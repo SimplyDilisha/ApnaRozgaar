@@ -25,9 +25,9 @@
   --glass-border: rgba(255, 255, 255, 0.4);
 
   /* Premium Gradients */
-  --primary-gradient: linear-gradient(135deg, #2563EB, #2563EB);
+  --primary-gradient: linear-gradient(135deg, #020305, #1b1c1f);
   --teal-gradient: linear-gradient(135deg, #0D9488, #10B981);
-  --text-gradient: linear-gradient(135deg, #2563EB, #2563EB);
+  --text-gradient: linear-gradient(135deg, #060a12, #111214);
   --premium-gradient: linear-gradient(135deg, #F59E0B, #F43F5E);
   --dark-gradient: linear-gradient(135deg, #0A0416, #1A1025);
 

@@ -35,14 +35,14 @@ function Dots({ total, current, onSelect }) {
           onClick={() => onSelect(i)}
           aria-label={`Go to slide ${i + 1}`}
           style={{
-            width: i === current ? '28px' : '10px',
-            height: '10px',
+            width: i === current ? '12px' : '5px',
+            height: '5px',
             borderRadius: '999px',
-            background: i === current ? '#ffffff' : 'rgba(255, 255, 255, 1)',
+            background: i === current ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
             border: 'none',
             cursor: 'pointer',
             padding: 0,
-            transition: 'all 0.3s ease',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         />
       ))}
@@ -115,28 +115,6 @@ export default function LandingHero() {
           {/* ── LEFT: Text ── */}
           <div style={{ flex: '1 1 45%', minWidth: '300px', position: 'relative', zIndex: 10 }}>
 
-            {/* Badge */}
-            <motion.div
-              variants={itemVariants}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(124,58,237,0.08)',
-                border: '1px solid rgba(124,58,237,0.2)',
-                borderRadius: '999px',
-                padding: '6px 16px',
-                marginBottom: '24px',
-                color: '#7c3aed',
-                fontSize: '0.82rem',
-                fontWeight: '700',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-              }}
-            >
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#7c3aed', display: 'inline-block' }} />
-              India's Largest Livelihood Platform
-            </motion.div>
 
             <motion.h1
               variants={itemVariants}
