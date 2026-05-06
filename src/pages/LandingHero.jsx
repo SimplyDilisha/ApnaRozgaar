@@ -35,14 +35,14 @@ function Dots({ total, current, onSelect }) {
           onClick={() => onSelect(i)}
           aria-label={`Go to slide ${i + 1}`}
           style={{
-            width: i === current ? '28px' : '10px',
-            height: '10px',
+            width: i === current ? '12px' : '5px',
+            height: '5px',
             borderRadius: '999px',
-            background: i === current ? '#ffffff' : 'rgba(255, 255, 255, 1)',
+            background: i === current ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
             border: 'none',
             cursor: 'pointer',
             padding: 0,
-            transition: 'all 0.3s ease',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         />
       ))}
