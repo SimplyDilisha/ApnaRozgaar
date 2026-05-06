@@ -13,6 +13,7 @@ import ScreenReader from './ScreenReader';
 import MotorAccessibilityToolbar from './MotorAccessibilityToolbar';
 import KeyboardShortcutsHelp from './KeyboardShortcutsHelp';
 import VoiceControl from './VoiceControl';
+import AccessibilityMenu from './AccessibilityMenu';
 import InterviewPrepPage from './pages/InterviewPrepPage';
 import AboutUs from './pages/AboutUs';
 import ResumeBuilder from './pages/ResumeBuilder';
@@ -225,7 +226,7 @@ const Header = () => {
 
         <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-end', flex: '1 1 auto' }}>
           <AccessibleButton variant="premium" onClick={() => navigate('/pricing')} aria-label="Premium Membership" style={{ gap: '9px', marginRight: '0px' }}>
-            Premium
+            👑 Premium
           </AccessibleButton>
 
 
@@ -514,6 +515,157 @@ const Header = () => {
   );
 };
 
+const FOCUS_OVERLAY_PADDING = 8;
+
+const resolveFocusArea = (element) => {
+  if (typeof HTMLElement === 'undefined' || !(element instanceof HTMLElement)) return null;
+  return element;
+};
+
+const FocusModeOverlay = () => {
+  const [isEnabled, setIsEnabled] = useState(() => document.documentElement.classList.contains('focus-mode'));
+  const [spotlightRect, setSpotlightRect] = useState(null);
+  const hoveredElementRef = useRef(null);
+
+  const updateSpotlight = useCallback((targetElement = null) => {
+    let target;
+
+    if (targetElement) {
+      target = resolveFocusArea(targetElement);
+    } else {
+      const activeElement = document.activeElement;
+      const fallbackTarget = document.querySelector('[data-focus-area="main-content"]') || document.querySelector('main');
+      target = resolveFocusArea(activeElement && activeElement !== document.body ? activeElement : fallbackTarget);
+    }
+
+    if (!target) {
+      setSpotlightRect(null);
+      return;
+    }
+
+    const rect = target.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      setSpotlightRect(null);
+      return;
+    }
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const top = Math.max(12, rect.top - FOCUS_OVERLAY_PADDING);
+    const left = Math.max(12, rect.left - FOCUS_OVERLAY_PADDING);
+    const right = Math.min(viewportWidth - 12, rect.right + FOCUS_OVERLAY_PADDING);
+    const bottom = Math.min(viewportHeight - 12, rect.bottom + FOCUS_OVERLAY_PADDING);
+    const width = Math.max(0, right - left);
+    const height = Math.max(0, bottom - top);
+
+    if (!width || !height) {
+      setSpotlightRect(null);
+      return;
+    }
+
+    setSpotlightRect({
+      top,
+      left,
+      right,
+      bottom,
+      width,
+      height,
+      borderRadius: window.getComputedStyle(target).borderRadius || '24px',
+    });
+  }, []);
+
+  useEffect(() => {
+    const syncFromDocument = () => {
+      const nextEnabled = document.documentElement.classList.contains('focus-mode');
+      setIsEnabled(nextEnabled);
+
+      if (nextEnabled) {
+        requestAnimationFrame(() => updateSpotlight());
+      } else {
+        setSpotlightRect(null);
+      }
+    };
+
+    const handleFocusIn = () => {
+      if (document.documentElement.classList.contains('focus-mode') && !hoveredElementRef.current) {
+        requestAnimationFrame(() => updateSpotlight());
+      }
+    };
+
+    const handleMouseOver = (e) => {
+      if (document.documentElement.classList.contains('focus-mode')) {
+        hoveredElementRef.current = e.target;
+        requestAnimationFrame(() => updateSpotlight(e.target));
+      }
+    };
+
+    const handleMouseOut = () => {
+      if (document.documentElement.classList.contains('focus-mode')) {
+        hoveredElementRef.current = null;
+        requestAnimationFrame(() => updateSpotlight());
+      }
+    };
+
+    const handleResizeOrScroll = () => {
+      if (document.documentElement.classList.contains('focus-mode')) {
+        requestAnimationFrame(() => updateSpotlight(hoveredElementRef.current));
+      }
+    };
+
+    syncFromDocument();
+    document.addEventListener('motor-a11y-settings-change', syncFromDocument);
+    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('mouseover', handleMouseOver, true);
+    document.addEventListener('mouseout', handleMouseOut, true);
+    window.addEventListener('resize', handleResizeOrScroll);
+    window.addEventListener('scroll', handleResizeOrScroll, true);
+
+    return () => {
+      document.removeEventListener('motor-a11y-settings-change', syncFromDocument);
+      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('mouseover', handleMouseOver, true);
+      document.removeEventListener('mouseout', handleMouseOut, true);
+      window.removeEventListener('resize', handleResizeOrScroll);
+      window.removeEventListener('scroll', handleResizeOrScroll, true);
+    };
+  }, [updateSpotlight]);
+
+  if (!isEnabled || !spotlightRect) {
+    return null;
+  }
+
+  return (
+    <div className="focus-mode-overlay" aria-hidden="true">
+      <div
+        className="focus-mode-overlay-shade focus-mode-overlay-shade-top"
+        style={{ height: `${spotlightRect.top}px` }}
+      />
+      <div
+        className="focus-mode-overlay-shade focus-mode-overlay-shade-left"
+        style={{ top: `${spotlightRect.top}px`, width: `${spotlightRect.left}px`, height: `${spotlightRect.height}px` }}
+      />
+      <div
+        className="focus-mode-overlay-shade focus-mode-overlay-shade-right"
+        style={{ top: `${spotlightRect.top}px`, left: `${spotlightRect.right}px`, height: `${spotlightRect.height}px` }}
+      />
+      <div
+        className="focus-mode-overlay-shade focus-mode-overlay-shade-bottom"
+        style={{ top: `${spotlightRect.bottom}px` }}
+      />
+      <div
+        className="focus-mode-overlay-frame"
+        style={{
+          top: `${spotlightRect.top}px`,
+          left: `${spotlightRect.left}px`,
+          width: `${spotlightRect.width}px`,
+          height: `${spotlightRect.height}px`,
+          borderRadius: spotlightRect.borderRadius,
+        }}
+      />
+    </div>
+  );
+};
+
 const Footer = () => (
   <footer style={{
     marginTop: 'auto',
@@ -708,15 +860,14 @@ const AppLayout = () => {
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Header />
 
-        <main id="main-content" tabIndex="-1" style={{ flex: 1, paddingTop: isHomePage ? '0' : '100px' }} role="main">
+        <main id="main-content" data-focus-area="main-content" tabIndex="-1" style={{ flex: 1, paddingTop: isHomePage ? '0' : '100px' }} role="main">
           <AnimatedRoutes />
         </main>
 
         {!(isChatPage || isResumeBuilderPage) && <Footer />}
       </div>
 
-      {/* Screen Reader - Text-to-Speech Feature */}
-      <ScreenReader />
+      {/* Accessibility features moved to AccessibilityMenu, we only need KeyboardShortcutsHelp here */}
 
       {/* Chatbot quick launch button above voice control */}
       {!isChatPage && (
@@ -728,11 +879,11 @@ const AppLayout = () => {
           style={{
             position: 'fixed',
             right: '24px',
-            bottom: '250px',
+            bottom: '90px',
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            background: 'var(--accent-purple)',
+            background: 'black',
             color: 'white',
             border: 'none',
             cursor: 'pointer',
@@ -747,14 +898,14 @@ const AppLayout = () => {
         </button>
       )}
 
-      {/* Voice Control - Hands-free Navigation */}
-      <VoiceControl />
-
-      {/* Motor Accessibility Toolbar - Section 7 */}
-      <MotorAccessibilityToolbar />
+      {/* Unified Accessibility Menu */}
+      <AccessibilityMenu />
 
       {/* Keyboard Shortcuts Help - Section 1.6 */}
       <KeyboardShortcutsHelp />
+
+      {/* ADHD Focus Mode Spotlight */}
+      <FocusModeOverlay />
     </>
   );
 };

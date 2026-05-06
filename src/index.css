@@ -25,9 +25,9 @@
   --glass-border: rgba(255, 255, 255, 0.4);
 
   /* Premium Gradients */
-  --primary-gradient: linear-gradient(135deg, #2563EB, #2563EB);
+  --primary-gradient: linear-gradient(135deg, #020305, #1b1c1f);
   --teal-gradient: linear-gradient(135deg, #0D9488, #10B981);
-  --text-gradient: linear-gradient(135deg, #2563EB, #2563EB);
+  --text-gradient: linear-gradient(135deg, #060a12, #111214);
   --premium-gradient: linear-gradient(135deg, #F59E0B, #F43F5E);
   --dark-gradient: linear-gradient(135deg, #0A0416, #1A1025);
 
@@ -934,6 +934,50 @@ html.reduce-motion *::after {
   animation-iteration-count: 1 !important;
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
+}
+
+/* Section 7.7 - ADHD focus mode spotlight */
+html.focus-mode body {
+  overflow-x: hidden;
+}
+
+.focus-mode-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9996;
+}
+
+.focus-mode-overlay-shade {
+  position: fixed;
+  background: rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(4px) saturate(0.85);
+  -webkit-backdrop-filter: blur(4px) saturate(0.85);
+  transition: all 0.18s ease;
+}
+
+.focus-mode-overlay-shade-top {
+  inset: 0 0 auto 0;
+}
+
+.focus-mode-overlay-shade-left {
+  left: 0;
+}
+
+.focus-mode-overlay-shade-right {
+  right: 0;
+}
+
+.focus-mode-overlay-shade-bottom {
+  inset: auto 0 0 0;
+}
+
+.focus-mode-overlay-frame {
+  position: fixed;
+  border: 2px solid rgba(59, 130, 246, 0.7);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 12px 30px rgba(15, 23, 42, 0.18);
+  background: transparent;
+  transition: all 0.18s ease;
 }
 
 /* Section 9.1 - Respect OS prefers-reduced-motion */
