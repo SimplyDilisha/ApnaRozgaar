@@ -17,11 +17,11 @@ const STORAGE_KEY = 'voice-control-settings';
  * A comprehensive voice command system for hands-free website navigation
  * Supports navigation, scrolling, clicking, and custom actions
  */
-export default function VoiceControl() {
+export default function VoiceControl({ embedded = false }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(embedded ? true : false);
   const [showHelp, setShowHelp] = useState(false);
   const [commandHistory, setCommandHistory] = useState([]);
   const [feedback, setFeedback] = useState(null);
@@ -544,125 +544,127 @@ export default function VoiceControl() {
   return (
     <>
       {/* Floating Voice Control Button */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '180px',
-          right: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          zIndex: 9997,
-        }}
-      >
-        {/* Status Label */}
-        <motion.div
-          initial={{ opacity: 0, x: 20, scale: 0.8 }}
-          animate={{
-            opacity: (isHovered || isListening) ? 1 : 0,
-            x: (isHovered || isListening) ? 0 : 20,
-            scale: (isHovered || isListening) ? 1 : 0.8
-          }}
-          transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+      {!embedded && (
+        <div
           style={{
-            background: isListening
-              ? 'var(--success)'
-              : 'var(--card-bg)',
-            padding: '8px 14px',
-            borderRadius: '20px',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
-            border: isListening ? 'none' : '1px solid var(--border)',
-            fontSize: '0.85rem',
-            fontWeight: 600,
-            color: isListening ? 'white' : 'var(--text-primary)',
-            whiteSpace: 'nowrap',
+            position: 'fixed',
+            bottom: '180px',
+            right: '24px',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            pointerEvents: (isHovered || isListening) ? 'auto' : 'none',
+            gap: '12px',
+            zIndex: 9997,
           }}
         >
-          {isListening ? (
-            <>
-              <span className="voice-pulse" style={{
-                width: '8px',
-                height: '8px',
-                background: 'white',
-                borderRadius: '50%',
-                animation: 'pulse 1.5s infinite',
-              }} />
-              Listening...
-            </>
-          ) : isHovered ? (
-            <motion.span
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-            >
-              <Volume2 size={16} /> 🎤 Voice Control
-            </motion.span>
-          ) : (
-            <motion.span
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-            >
-              🎤 Voice Control
-            </motion.span>
-          )}
-        </motion.div>
+          {/* Status Label */}
+          <motion.div
+            initial={{ opacity: 0, x: 20, scale: 0.8 }}
+            animate={{
+              opacity: (isHovered || isListening) ? 1 : 0,
+              x: (isHovered || isListening) ? 0 : 20,
+              scale: (isHovered || isListening) ? 1 : 0.8
+            }}
+            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+            style={{
+              background: isListening
+                ? 'var(--success)'
+                : 'var(--card-bg)',
+              padding: '8px 14px',
+              borderRadius: '20px',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
+              border: isListening ? 'none' : '1px solid var(--border)',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              color: isListening ? 'white' : 'var(--text-primary)',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              pointerEvents: (isHovered || isListening) ? 'auto' : 'none',
+            }}
+          >
+            {isListening ? (
+              <>
+                <span className="voice-pulse" style={{
+                  width: '8px',
+                  height: '8px',
+                  background: 'white',
+                  borderRadius: '50%',
+                  animation: 'pulse 1.5s infinite',
+                }} />
+                Listening...
+              </>
+            ) : isHovered ? (
+              <motion.span
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <Volume2 size={16} /> 🎤 Voice Control
+              </motion.span>
+            ) : (
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+              >
+                🎤 Voice Control
+              </motion.span>
+            )}
+          </motion.div>
 
-        {/* Main Toggle Button */}
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label={isOpen ? 'Close voice control' : 'Open voice control'}
-          aria-expanded={isOpen}
-          style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '50%',
-            background: isListening
-              ? 'var(--success)'
-              : 'var(--accent-purple)',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: isListening
-              ? '0 4px 20px rgba(5, 150, 105, 0.5)'
-              : '0 4px 20px var(--accent-purple-glow)',
-            transition: 'all 0.3s ease',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {isListening && (
-            <motion.div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                borderRadius: '50%',
-                border: '3px solid rgba(255,255,255,0.5)',
-              }}
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.8, 0, 0.8],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-          )}
-          {isOpen ? <X size={24} /> : <Mic size={24} />}
-        </motion.button>
-      </div>
+          {/* Main Toggle Button */}
+          <motion.button
+            onClick={() => setIsOpen(!isOpen)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label={isOpen ? 'Close voice control' : 'Open voice control'}
+            aria-expanded={isOpen}
+            style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: isListening
+                ? 'var(--success)'
+                : 'var(--accent-purple)',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: isListening
+                ? '0 4px 20px rgba(5, 150, 105, 0.5)'
+                : '0 4px 20px var(--accent-purple-glow)',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            {isListening && (
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '50%',
+                  border: '3px solid rgba(255,255,255,0.5)',
+                }}
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.8, 0, 0.8],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+            )}
+            {isOpen ? <X size={24} /> : <Mic size={24} />}
+          </motion.button>
+        </div>
+      )}
 
       {/* Feedback Toast */}
       <AnimatePresence>
@@ -708,7 +710,16 @@ export default function VoiceControl() {
             className="voice-control-panel"
             role="dialog"
             aria-label="Voice Control Panel"
-            style={{
+            style={embedded ? {
+              width: '100%',
+              background: 'var(--card-bg)',
+              borderRadius: '20px',
+              border: '1px solid var(--border)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              maxHeight: '400px', // Restrict height inside panel
+            } : {
               position: 'fixed',
               bottom: '250px',
               right: '24px',

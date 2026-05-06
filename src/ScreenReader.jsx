@@ -7,8 +7,8 @@ import { Volume2, VolumeX, Pause, Play, Settings } from 'lucide-react';
  * Text-to-Speech feature that reads content on the screen aloud
  * Uses Web Speech API (SpeechSynthesis)
  */
-export default function ScreenReader() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function ScreenReader({ embedded = false }) {
+  const [isOpen, setIsOpen] = useState(embedded ? true : false);
   const [isReading, setIsReading] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [selectedText, setSelectedText] = useState('');
@@ -148,70 +148,72 @@ export default function ScreenReader() {
   return (
     <>
       {/* Floating Toggle Button with Label */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '100px',
-          right: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          zIndex: 9998,
-        }}
-      >
-        {/* Text Label */}
-        <motion.div
-          initial={{ opacity: 0, x: 20, scale: 0.8 }}
-          animate={{ 
-            opacity: (isHovered || isReading) ? 1 : 0, 
-            x: (isHovered || isReading) ? 0 : 20,
-            scale: (isHovered || isReading) ? 1 : 0.8
-          }}
-          transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+      {!embedded && (
+        <div
           style={{
-            background: 'var(--card-bg)',
-            padding: '8px 14px',
-            borderRadius: '20px',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
-            border: '1px solid var(--border-color)',
-            fontSize: '0.85rem',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            whiteSpace: 'nowrap',
-            pointerEvents: (isHovered || isReading) ? 'auto' : 'none',
-          }}
-        >
-          🔊 {isReading ? 'Reading...' : 'Read Aloud'}
-        </motion.div>
-        
-        {/* Button */}
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="screen-reader-toggle"
-          aria-label={isOpen ? 'Close screen reader' : 'Open screen reader'}
-          aria-expanded={isOpen}
-          style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '50%',
-            background: isReading ? 'var(--success)' : 'var(--accent-purple)',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
+            position: 'fixed',
+            bottom: '100px',
+            right: '24px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 20px var(--accent-purple-glow)',
-            transition: 'all 0.3s ease',
+            gap: '12px',
+            zIndex: 9998,
           }}
         >
-          {isReading ? <Volume2 size={24} /> : <VolumeX size={24} />}
-        </motion.button>
-      </div>
+          {/* Text Label */}
+          <motion.div
+            initial={{ opacity: 0, x: 20, scale: 0.8 }}
+            animate={{ 
+              opacity: (isHovered || isReading) ? 1 : 0, 
+              x: (isHovered || isReading) ? 0 : 20,
+              scale: (isHovered || isReading) ? 1 : 0.8
+            }}
+            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+            style={{
+              background: 'var(--card-bg)',
+              padding: '8px 14px',
+              borderRadius: '20px',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
+              border: '1px solid var(--border-color)',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              color: 'var(--text-primary)',
+              whiteSpace: 'nowrap',
+              pointerEvents: (isHovered || isReading) ? 'auto' : 'none',
+            }}
+          >
+            🔊 {isReading ? 'Reading...' : 'Read Aloud'}
+          </motion.div>
+          
+          {/* Button */}
+          <motion.button
+            onClick={() => setIsOpen(!isOpen)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="screen-reader-toggle"
+            aria-label={isOpen ? 'Close screen reader' : 'Open screen reader'}
+            aria-expanded={isOpen}
+            style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: isReading ? 'var(--success)' : 'var(--accent-purple)',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 20px var(--accent-purple-glow)',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            {isReading ? <Volume2 size={24} /> : <VolumeX size={24} />}
+          </motion.button>
+        </div>
+      )}
 
       {/* Screen Reader Panel */}
       {isOpen && (
@@ -219,7 +221,13 @@ export default function ScreenReader() {
           className="screen-reader-panel"
           role="dialog"
           aria-label="Screen Reader Controls"
-          style={{
+          style={embedded ? {
+            width: '100%',
+            background: 'var(--card-bg)',
+            borderRadius: '16px',
+            border: '1px solid var(--border-color)',
+            overflow: 'hidden',
+          } : {
             position: 'fixed',
             bottom: '170px',
             right: '24px',
