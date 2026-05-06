@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, ShieldCheck, Zap, Eye } from 'lucide-react';
 import { AccessibleButton } from '../App';
-import heroImg from '../assets/HeroImage.png';
+import heroImg from '../assets/premium_hero_bg.png';
 
 export default function LandingHero() {
   const containerVariants = {
@@ -32,9 +32,9 @@ export default function LandingHero() {
           overflow: 'hidden',
           position: 'relative',
           backgroundColor: 'var(--bg-secondary)',
-          backgroundImage: `url(${heroImg})`,
+          backgroundImage: `linear-gradient(to right, rgba(252, 251, 255, 0.95) 0%, rgba(252, 251, 255, 0.7) 50%, rgba(252, 251, 255, 0.1) 100%), url(${heroImg})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center right',
           backgroundAttachment: 'fixed'
         }}
         aria-labelledby="hero-heading"
