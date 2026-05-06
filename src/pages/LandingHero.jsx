@@ -25,13 +25,17 @@ export default function LandingHero() {
       <section
         className="hero-section"
         style={{
-          padding: '100px 24px 60px',
+          padding: '140px 24px 60px',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
           overflow: 'hidden',
           position: 'relative',
           backgroundColor: 'var(--bg-secondary)',
           backgroundImage: `url(${heroImg})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
         }}
         aria-labelledby="hero-heading"
       >

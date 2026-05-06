@@ -24,10 +24,12 @@
   --border: rgba(37, 99, 235, 0.1);
   --glass-border: rgba(255, 255, 255, 0.4);
 
-  /* Solid Colors (Replacing Gradients) */
-  --primary-gradient: var(--accent-purple);
-  --teal-gradient: var(--accent-teal);
-  --text-gradient: var(--accent-purple);
+  /* Premium Gradients */
+  --primary-gradient: linear-gradient(135deg, #2563EB, #8B5CF6);
+  --teal-gradient: linear-gradient(135deg, #0D9488, #10B981);
+  --text-gradient: linear-gradient(135deg, #2563EB, #8B5CF6);
+  --premium-gradient: linear-gradient(135deg, #F59E0B, #F43F5E);
+  --dark-gradient: linear-gradient(135deg, #0A0416, #1A1025);
 
   /* Component tokens */
   --card-bg: rgba(255, 255, 255, 0.85);
@@ -797,6 +799,80 @@ html.large-cursor * {
   font-size: 0.85rem;
   z-index: 9998;
   box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+}
+
+/* ============================================
+   PREMIUM NAVBAR & FOOTER UTILITIES
+   ============================================ */
+
+.nav-link-hover {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent-purple);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-link-hover:hover::after,
+.nav-link-hover:focus-visible::after {
+  width: 40%;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: white;
+  transform: translateX(4px);
+}
+
+.footer-bottom-link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-link:hover,
+.footer-bottom-link:focus-visible {
+  color: white;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icon:hover,
+.social-icon:focus-visible {
+  background: var(--primary-gradient);
+  transform: translateY(-4px) rotate(5deg);
+  border-color: transparent;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
 }
 
 /* Section 7.3 - Big targets mode */
